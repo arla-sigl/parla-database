@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  postgres:
+    image: postgres:12.1-alpine
+    container_name: postgres-12-pgbench
+    networks:
+     - pgadmin
+    environment:
+     - POSTGRES_PASSWORD=sigl2020
+     - POSTGRES_USER=sigl2020
+     - POSTGRES_DB=bench2
+    ports:
+    - '5433:5432'
+    mem_limit: 2048m
+  pgadmin4:
+    image: dpage/pgadmin4:4.15
+    container_name: pgadmin4-pgbench
+    networks:
+     - pgadmin
+    environment:
+     - PGADMIN_DEFAULT_EMAIL=arla@sigl.fr
+     - PGADMIN_DEFAULT_PASSWORD=sigl2020
+    ports:
+     - '8060:80'
+
+networks:
+  pgadmin:
+    external:
+      name: pgadmin
